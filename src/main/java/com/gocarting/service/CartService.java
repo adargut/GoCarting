@@ -1,10 +1,14 @@
 package com.gocarting.service;
 
+import com.gocarting.item.Item;
+
 public interface CartService {
 
-    // Sum elements of the cart
     Double getCartSum();
 
-    // Add an element to the cart
     Boolean addToCart(String id);
+
+    Item getCheapestItem();
+
+    Item getPriciestItem();
 }

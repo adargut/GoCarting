@@ -3,28 +3,24 @@ package com.gocarting.service;
 import com.gocarting.item.Item;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.HashMap;
 import com.google.common.collect.MinMaxPriorityQueue;
 
 @Service
 public class ItemServiceImpl implements ItemService {
 
-    // Keep track of how many different item we've created
     private int itemsAmount;
 
-    // List of available products to put inside cart
     private HashMap<String, Item> itemMap;
 
+    // TODO put this in cart
     @SuppressWarnings("UnstableApiUsage")
-    // Maintain a Min-Max Heap to retrieve both cheapest item and most expensive one
-    private static MinMaxPriorityQueue<Item> itemHeap =
+    private MinMaxPriorityQueue<Item> itemHeap =
             MinMaxPriorityQueue.orderedBy(itemComparator).create();
 
-    // No-Args ctr
-    public ItemServiceImpl() {
+    public ItemServiceImpl(HashMap<String, Item> itemMap) {
 
-        itemMap = new HashMap<>();
+        itemMap = new HashMap<>() = itemMap;
 
         final Item itemOne = new Item("10A", 15);
         final Item itemTwo = new Item("20B", 100);

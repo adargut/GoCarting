@@ -12,11 +12,10 @@ public class CartServiceImpl implements CartService {
     // Items service for our shopping cart
     private ItemService itemsService;
 
-    // No-Args ctr
-    public CartServiceImpl() {
+    public CartServiceImpl(ItemService itemService) {
 
         cartItems = new HashMap<>();
-        itemsService = new ItemServiceImpl();
+        this.itemsService = itemService;
     }
 
     /**

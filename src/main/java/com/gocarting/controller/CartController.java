@@ -16,13 +16,13 @@ public class CartController {
 
     private ItemService itemService;
 
-    // No-Args ctr for services
+    // TODO make this injection
     CartController() {
         this.cartService = new CartServiceImpl();
         this.itemService = new ItemServiceImpl();
     }
 
-    // Adds a new item to our cart.
+    // @TODO remove logic from cart controller
     @PutMapping(value = "/add-to-cart?itemid={id}", produces = MediaType.TEXT_PLAIN_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public String addToCart (@PathVariable String id) {
@@ -34,18 +34,16 @@ public class CartController {
         return "Success!";
     }
 
-    // Sums elements of the cart.
     @GetMapping(value="/get-cart-sum", produces = MediaType.TEXT_PLAIN_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public String getCartSum() {
         return Double.toString(cartService.getCartSum());
     }
 
-    // Gets cheapest item available.
     @GetMapping(value="/get-cheapest-item", produces = MediaType.TEXT_PLAIN_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public String cheapestItem() {
-        return itemService.getCheapestItem().toString();
+        return cartService.getCheapestItem().toString();
     }
 
     // Gets priciest item available.
@@ -54,7 +52,7 @@ public class CartController {
     public String priciestItem() {
 //        return itemService.getPriciestItem().toString();
         return "Hello there! Priciest item is:\n" +
-                itemService.getPriciestItem().toString();
+                cartService.getPriciestItem().toString();
     }
 
     // Index

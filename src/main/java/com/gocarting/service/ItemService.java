@@ -9,10 +9,6 @@ public interface ItemService {
     // Compare products by their prices
     Comparator<Item> itemComparator = Comparator.comparing(Item::getPrice);
 
-    Item getCheapestItem();
-
-    Item getPriciestItem();
-
     Item getItemByID(final String id);
 
     Boolean searchItemByID(String id);
