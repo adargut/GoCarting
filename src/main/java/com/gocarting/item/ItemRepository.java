@@ -1,13 +1,12 @@
-package com.gocarting.service;
+package com.gocarting.item;
 
-import com.gocarting.item.Item;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import com.google.common.collect.MinMaxPriorityQueue;
 
 @Service
-public class ItemServiceImpl implements ItemService {
+public class ItemRepository implements ItemHandler {
 
     private int itemsAmount;
 
@@ -18,7 +17,7 @@ public class ItemServiceImpl implements ItemService {
     private MinMaxPriorityQueue<Item> itemHeap =
             MinMaxPriorityQueue.orderedBy(itemComparator).create();
 
-    public ItemServiceImpl(HashMap<String, Item> itemMap) {
+    public ItemRepository(HashMap<String, Item> itemMap) {
 
         itemMap = new HashMap<>() = itemMap;
 

@@ -10,9 +10,9 @@ public class CartServiceImpl implements CartService {
     private HashMap<String, Item> cartItems;
 
     // Items service for our shopping cart
-    private ItemService itemsService;
+    private ItemHandler itemsService;
 
-    public CartServiceImpl(ItemService itemService) {
+    public CartServiceImpl(ItemHandler itemService) {
 
         cartItems = new HashMap<>();
         this.itemsService = itemService;
@@ -39,6 +39,8 @@ public class CartServiceImpl implements CartService {
      */
     @Override
     public Boolean addToCart(String id) {
+
+        // TODO change this to throw exception
 
         if (itemsService.searchItemByID(id)) {
             cartItems.put(id, itemsService.getItemByID(id));
