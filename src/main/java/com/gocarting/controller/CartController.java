@@ -25,30 +25,36 @@ public class CartController {
     // Adds a new item to our cart.
     @PutMapping(value = "/add-to-cart?itemid={id}", produces = MediaType.TEXT_PLAIN_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public void addToCart (@PathVariable String id) {
-        if (itemService.searchItemByID(id)) {
-            cartService.addToCart(id);
-        } else {
-            throw new ResourceNotFoundException();
-        }
+    public String addToCart (@PathVariable String id) {
+//        if (itemService.searchItemByID(id)) {
+//            cartService.addToCart(id);
+//        } else {
+//            throw new ResourceNotFoundException();
+//        }
+        return "Success!";
     }
 
     // Sums elements of the cart.
     @GetMapping(value="/get-cart-sum", produces = MediaType.TEXT_PLAIN_VALUE)
+    @ResponseStatus(HttpStatus.OK)
     public String getCartSum() {
         return Double.toString(cartService.getCartSum());
     }
 
     // Gets cheapest item available.
     @GetMapping(value="/get-cheapest-item", produces = MediaType.TEXT_PLAIN_VALUE)
+    @ResponseStatus(HttpStatus.OK)
     public String cheapestItem() {
         return itemService.getCheapestItem().toString();
     }
 
     // Gets priciest item available.
     @GetMapping(value="/get-priciest-item", produces = MediaType.TEXT_PLAIN_VALUE)
+    @ResponseStatus(HttpStatus.OK)
     public String priciestItem() {
-        return itemService.getPriciestItem().toString();
+//        return itemService.getPriciestItem().toString();
+        return "Hello there! Priciest item is:\n" +
+                itemService.getPriciestItem().toString();
     }
 
     // Index

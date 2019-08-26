@@ -1,5 +1,9 @@
-gocarting\Cart.class
-gocarting\CartController.class
-gocarting\Product.class
-gocarting\ProductData.class
-gocarting\MainApplicationClass.class
+com\gocarting\GoCartingApplication.class
+com\gocarting\service\ItemServiceImpl.class
+com\gocarting\service\CartService.class
+com\gocarting\item\Item.class
+com\gocarting\controller\CartController.class
+com\gocarting\service\ItemService.class
+com\gocarting\exception\BadRequestException.class
+com\gocarting\exception\ResourceNotFoundException.class
+com\gocarting\service\CartServiceImpl.class

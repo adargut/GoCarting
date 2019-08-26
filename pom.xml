@@ -14,18 +14,20 @@
         <version>1.5.9.RELEASE</version>
     </parent>
 
+    <repositories>
+        <repository>
+            <id>wso2</id>
+            <name>wso2 repository</name>
+            <url>https://dist.wso2.org/maven2/</url>
+        </repository>
+    </repositories>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/com.google.common/google-collect -->
-        <dependency>
-            <groupId>com.google.common</groupId>
-            <artifactId>google-collect</artifactId>
-            <version>1.0-rc1</version>
-        </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
         <dependency>
@@ -40,16 +42,7 @@
             <artifactId>guava</artifactId>
             <version>19.0</version>
         </dependency>
-
-        <!-- https://mvnrepository.com/artifact/com.google.java.contract/cofoja -->
-        <dependency>
-            <groupId>com.google.java.contract</groupId>
-            <artifactId>cofoja</artifactId>
-            <version>1.1-r150</version>
-        </dependency>
     </dependencies>
-
-
 
     <properties>
         <java.version>1.8</java.version>
@@ -61,6 +54,17 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+
+            <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.8.1</version>
+            <configuration>
+                <compilerArgs>
+                    --add-opens java.base/java.lang=ALL-UNNAMED
+                </compilerArgs>
+            </configuration>
+        </plugin>
         </plugins>
     </build>
 

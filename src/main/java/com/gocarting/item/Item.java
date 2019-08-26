@@ -4,9 +4,9 @@ public class Item {
     private String id;
     private double price;
 
+    // Full-Args ctr
     public Item(String id, double price) {
         this.price = price;
-        // Ensure unique IDs are given to different item
         this.id = id;
     }
 

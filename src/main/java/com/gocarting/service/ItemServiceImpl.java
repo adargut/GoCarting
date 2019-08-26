@@ -5,8 +5,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.HashMap;
-import com.google.java.contract.Invariant;
-import com.google.java.contract.Requires;
 import com.google.common.collect.MinMaxPriorityQueue;
 
 @Service
@@ -35,6 +33,11 @@ public class ItemServiceImpl implements ItemService {
         itemMap.put("10A", itemOne);
         itemMap.put("20B", itemTwo);
         itemMap.put("30C", itemThree);
+
+        itemHeap.add(itemOne);
+        itemHeap.add(itemTwo);
+        itemHeap.add(itemThree);
+
         itemsAmount += 3;
     }
 
@@ -42,7 +45,6 @@ public class ItemServiceImpl implements ItemService {
      * Returns a new Item instance by ID.
      */
     @Override
-    @Requires(value = "itemMap.contains(id) == true")
     public Item getItemByID(String id) {
 
         return itemMap.get(id);
@@ -67,9 +69,9 @@ public class ItemServiceImpl implements ItemService {
      */
     @Override
     public Item getCheapestItem() {
+
         return itemHeap.peekFirst();
     }
-
 
     /**
      * Returns the priciest item by maintaining a Min-Max Heap for items.
@@ -77,6 +79,7 @@ public class ItemServiceImpl implements ItemService {
      */
     @Override
     public Item getPriciestItem() {
+
         return itemHeap.peekLast();
     }
 }

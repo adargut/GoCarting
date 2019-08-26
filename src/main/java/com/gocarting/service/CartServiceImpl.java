@@ -3,11 +3,8 @@ package com.gocarting.service;
 import java.util.HashMap;
 import java.util.stream.Collectors;
 
-import com.google.java.contract.Invariant;
-
 import com.gocarting.item.Item;
 
-@Invariant("cartItems.size() >= 0")
 public class CartServiceImpl implements CartService {
     // List of products inside our cart
     private HashMap<String, Item> cartItems;
