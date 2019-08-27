@@ -13,7 +13,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_STRING" value="--illegal-access=permit" />
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="GoCarting" options="" />
+      <module name="GoCarting" options="-parameters" />
     </option>
   </component>
 </project>

@@ -28,15 +28,14 @@ public class CartController {
         return "Let's go carting!";
     }
 
-    // TODO why does this only work with GetMapping? Should be PostMapping!
-    @RequestMapping("/add-to-cart")
+    @PutMapping("/add-to-cart")
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     public String addToCart(@RequestParam String itemid) {
         return cartService.addToCart(itemid);
     }
 
-    @RequestMapping("/delete-from-cart")
+    @DeleteMapping("/delete-from-cart")
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     public String removeFromCart(@RequestParam String itemid) {
