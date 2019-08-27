@@ -26,8 +26,8 @@
 
 **Tips:**
 
-- Use PUT request for adding an item to the cart, DELETE request for deletion, and GET request otherwise
 - Item are represented as JSONs
+- To avoid 405 Errors, use PUT request for adding an item to the cart, DELETE request for deletion, and GET request otherwise
 
 ## Author
 
