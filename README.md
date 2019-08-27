@@ -6,8 +6,20 @@
 
 **Supported requests:**
 
-- localhost:8080/add-to-cart?itemid={id} (should be 10A, 20B, etc)
-- localhost:8080/remove-from-cart?itemid={id} (see above for id information)
+- localhost:8080/add-to-cart?itemid={id}
+- localhost:8080/remove-from-cart?itemid={id}
 - localhost:8080/get-priciest-item
 - localhost:8080/get-cheapest-item
 - localhost:8080/get-cart-sum
+
+**Available item ids:**
+
+-"10A"
+-"20B"
+-"30C"
+-"40D"
+-"50E"
+-"60F"
+-"70G"
+-"80H"
+-"90I"
