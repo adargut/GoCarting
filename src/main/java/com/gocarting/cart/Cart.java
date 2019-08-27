@@ -5,6 +5,7 @@ import com.gocarting.repository.ItemRepository;
 
 import java.util.HashMap;
 
+// Replace this with an interface in future builds
 public class Cart {
 
     private final HashMap<Item, Integer> cartItems = new HashMap<>();
