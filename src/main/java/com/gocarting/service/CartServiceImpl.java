@@ -8,7 +8,6 @@ import com.gocarting.repository.ItemRepository;
 
 import static com.gocarting.controller.CartController.ItemNotFoundException;
 
-import com.gocarting.repository.MockItemRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
