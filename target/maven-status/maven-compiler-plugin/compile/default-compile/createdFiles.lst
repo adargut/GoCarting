@@ -1,11 +1,12 @@
 com\gocarting\controller\CartController$BadRequestException.class
 com\gocarting\GoCartingApplication.class
 com\gocarting\service\CartService.class
-com\gocarting\controller\CartController$ResourceNotFoundException.class
 com\gocarting\item\Item.class
 com\gocarting\controller\CartController.class
 com\gocarting\item\ItemRepository.class
 com\gocarting\cart\Cart.class
 com\gocarting\item\MockItemRepository$1.class
 com\gocarting\item\MockItemRepository.class
+com\gocarting\config\Config.class
 com\gocarting\service\CartServiceImpl.class
+com\gocarting\controller\CartController$ItemNotFoundException.class

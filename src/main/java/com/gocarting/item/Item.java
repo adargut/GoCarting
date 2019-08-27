@@ -43,6 +43,6 @@ public class Item implements Comparable<Item> {
         return "{" +
                 "\"itemId\": " + "\"" + id + "\"," +
                 System.getProperty("line.separator") +
-                " \"Price\": " + price;
+                " \"Price\": " + price + "}";
     }
 }

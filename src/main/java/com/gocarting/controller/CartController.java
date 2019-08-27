@@ -9,53 +9,68 @@ import com.gocarting.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.http.MediaType;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Collections;
 
 @RestController
 public class CartController {
 
+    @Autowired
     private CartService cartService;
 
-    private ItemRepository itemRepository = new MockItemRepository();
-
     CartController() {
+        ItemRepository itemRepository = new MockItemRepository();
         this.cartService = new CartServiceImpl(itemRepository);
     }
 
-    @RequestMapping(value = "/add-to-cart/{id}", method = RequestMethod.GET)
-    @ResponseStatus(HttpStatus.OK)
-    public String addToCart(@PathVariable String id) {
+    @PutMapping("/test")
+    public String claimTask(@RequestParam String id){
         return cartService.addToCart(id);
     }
 
-    @RequestMapping(value = "/remove-from-cart/{id}", method = RequestMethod.GET)
-    @ResponseStatus(HttpStatus.OK)
-    public String removeFromCart(@PathVariable String id) {
-        return cartService.removeFromCart(id);
+    // Index
+    @RequestMapping("/")
+    public String index() {
+        return "Let's go carting!";
     }
 
-    @GetMapping(value = "/get-cart-sum", produces = MediaType.TEXT_PLAIN_VALUE)
+    @GetMapping("/peek")
+        public String postTest() {
+        cartService = new CartServiceImpl(new MockItemRepository());
+        return "OK!";
+    }
+
+    @PostMapping("/add-to-cart")
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    public String addToCart(@RequestParam String itemid) {
+        return cartService.addToCart(itemid);
+    }
+
+    @DeleteMapping("/delete-from-cart")
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    public String removeFromCart(@RequestParam String itemid) {
+        return cartService.removeFromCart(itemid);
+    }
+
+    @GetMapping("/get-cart-sum")
     @ResponseStatus(HttpStatus.OK)
     public String getCartSum() {
         return cartService.getCartSum().toString();
     }
 
-    @GetMapping(value = "/get-cheapest-item", produces = MediaType.TEXT_PLAIN_VALUE)
+    @GetMapping("/get-cheapest-item")
     @ResponseStatus(HttpStatus.OK)
     public String cheapestItem() {
         return cartService.getCheapestItem().toString();
     }
 
-    @GetMapping(value = "/get-priciest-item", produces = MediaType.TEXT_PLAIN_VALUE)
+    @GetMapping("/get-priciest-item")
     @ResponseStatus(HttpStatus.OK)
     public String priciestItem() {
         return cartService.getPriciestItem().toString();
-    }
-
-    // Index
-    @RequestMapping(value = "/", produces = MediaType.TEXT_PLAIN_VALUE)
-    public String index() {
-        return "Let's go carting!";
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -64,7 +79,14 @@ public class CartController {
     }
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public static class ResourceNotFoundException extends RuntimeException {
-        //
+    public static class ItemNotFoundException extends RuntimeException {
+
+        public ItemNotFoundException(String id) {
+            super("Could not find item" + id);
+        }
+
+        public ItemNotFoundException() {
+            super("Could not find item");
+        }
     }
 }

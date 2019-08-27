@@ -6,12 +6,12 @@ import com.gocarting.cart.Cart;
 import com.gocarting.item.Item;
 import com.gocarting.item.ItemRepository;
 
+import static com.gocarting.controller.CartController.ItemNotFoundException;
+
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.google.common.collect.MinMaxPriorityQueue;
-
-import static com.gocarting.controller.CartController.*;
 
 @Service
 @Component
@@ -19,6 +19,7 @@ public class CartServiceImpl implements CartService {
 
     private Cart cart;
     private final Comparator<Item> itemComparator = Comparator.comparing(Item::getPrice);
+    // Min-Max heap maintains cheapest and most expensive item efficiently
     @SuppressWarnings("UnstableApiUsage")
     private final MinMaxPriorityQueue<Item> itemHeap = MinMaxPriorityQueue.orderedBy(itemComparator).create();
 
@@ -46,7 +47,7 @@ public class CartServiceImpl implements CartService {
     @Override
     public String addToCart(String id) {
         if (!cart.addToCart(id)) {
-            throw new ResourceNotFoundException();
+            throw new ItemNotFoundException(id);
         }
         itemHeap.add(itemsRepository.getItem(id));
         return "Successfully added " + id + " to cart!";
@@ -59,7 +60,7 @@ public class CartServiceImpl implements CartService {
     @Override
     public String removeFromCart(String id) {
         if (!cart.removeFromCart(id)) {
-            throw new ResourceNotFoundException();
+            throw new ItemNotFoundException(id);
         }
         itemHeap.remove(itemsRepository.getItem(id));
         return "Successfully removed " + id + " from cart!";
@@ -68,18 +69,24 @@ public class CartServiceImpl implements CartService {
     /**
      * Retrieves the cheapest {@code Item} element from the cart.
      * Does so by maintaing a Min-Max heap for efficient retrievals.
+     * If cart is empty, returns 404 exception instead.
      */
     @Override
     public Item getCheapestItem() {
+        Item cheapest = itemHeap.peekFirst();
+        if (cheapest == null) throw new ItemNotFoundException();
         return itemHeap.peekFirst();
     }
 
     /**
      * Retrieves the priciest {@code Item} element from the cart.
      * Does so by maintaing a Min-Max heap for efficient retrievals.
+     * If cart is empty, returns 404 exception instead.
      */
     @Override
     public Item getPriciestItem() {
+        Item priciest = itemHeap.peekLast();
+        if (priciest == null) throw new ItemNotFoundException();
         return itemHeap.peekLast();
     }
 }

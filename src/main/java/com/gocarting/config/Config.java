@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 @ComponentScan(basePackageClasses = CartServiceImpl.class)
 public class Config {
     @Bean
+    // Inject item repository dependency to cart service
     public ItemRepository getRepository() {
         return new MockItemRepository();
     }

@@ -4,8 +4,6 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.google.common.collect.MinMaxPriorityQueue;
-
 /**
  * Mock repository for items.
  */
