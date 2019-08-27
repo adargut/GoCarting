@@ -1,36 +1,42 @@
 package com.gocarting.service;
 
-import java.util.HashMap;
+import java.util.Comparator;
 import java.util.stream.Collectors;
 
+import com.gocarting.cart.Cart;
+import com.gocarting.controller.CartController;
 import com.gocarting.item.Item;
+import com.gocarting.item.ItemRepository;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import com.google.common.collect.MinMaxPriorityQueue;
 
+import static com.gocarting.controller.CartController.*;
+
+@Service
+@Component
 public class CartServiceImpl implements CartService {
-    // List of products inside our cart
-    private HashMap<String, Item> cartItems;
 
-    // Items service for our shopping cart
-    private ItemHandler itemsService;
+    private final Cart cart;
+    private final Comparator<Item> itemComparator = Comparator.comparing(Item::getPrice);
+    @SuppressWarnings("UnstableApiUsage")
+    private final MinMaxPriorityQueue<Item> itemHeap = MinMaxPriorityQueue.orderedBy(itemComparator).create();
 
-    public CartServiceImpl(ItemHandler itemService) {
+    private Double cartSum = 0.0;
+    private ItemRepository itemsRepository;
 
-        cartItems = new HashMap<>();
-        this.itemsService = itemService;
+    public CartServiceImpl(ItemRepository itemRepository) {
+        this.itemsRepository = itemRepository;
+        this.cart = new Cart(itemRepository);
     }
 
     /**
      * Returns the sum of all elements in {@code cartItems}.
-     * If the cart is empty, returns 0.
+     * If the cart is empty, returns 0.0.
      */
     @Override
     public Double getCartSum() {
-        if (cartItems.size() > 0) {
-            return  cartItems.values()
-                    .stream()
-                    .collect(Collectors.summarizingDouble(item-> item.getPrice()))
-                    .getSum();
-        }
-        return 0.0;
+        return cart.getCartSum();
     }
 
     /**
@@ -38,14 +44,42 @@ public class CartServiceImpl implements CartService {
      * Returns true on success, false otherwise.
      */
     @Override
-    public Boolean addToCart(String id) {
-
-        // TODO change this to throw exception
-
-        if (itemsService.searchItemByID(id)) {
-            cartItems.put(id, itemsService.getItemByID(id));
-            return true;
+    public String addToCart(String id) {
+        if (!cart.addToCart(id)) {
+            throw new ResourceNotFoundException();
         }
-        return false;
+        itemHeap.add(itemsRepository.getItem(id));
+        return "Successfully added " + id + " to cart!";
+    }
+
+    /**
+     * Attempts to remove an item from the cart by {@code id}.
+     * Returns "Sucess!" upon successful removal, and throws {@code 404 Exception} otherwise.
+     */
+    @Override
+    public String removeFromCart(String id) {
+        if (!cart.removeFromCart(id)) {
+            throw new ResourceNotFoundException();
+        }
+        itemHeap.remove(itemsRepository.getItem(id));
+        return "Successfully removed " + id + " from cart!";
+    }
+
+    /**
+     * Retrieves the cheapest {@code Item} element from the cart.
+     * Does so by maintaing a Min-Max heap for efficient retrievals.
+     */
+    @Override
+    public Item getCheapestItem() {
+        return itemHeap.peekFirst();
+    }
+
+    /**
+     * Retrieves the priciest {@code Item} element from the cart.
+     * Does so by maintaing a Min-Max heap for efficient retrievals.
+     */
+    @Override
+    public Item getPriciestItem() {
+        return itemHeap.peekLast();
     }
 }
