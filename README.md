@@ -2,7 +2,7 @@
 
 > A RESTful API design for an online shopping cart
 
-> built using Maven & Spring
+> built using Maven & Spring, for AppsFlyer
 
 **Supported requests:**
 
@@ -23,3 +23,7 @@
 - "70G"
 - "80H"
 - "90I"
+
+## Author
+
+- Adar Gutman
