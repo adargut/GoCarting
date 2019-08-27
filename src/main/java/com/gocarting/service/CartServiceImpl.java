@@ -4,7 +4,7 @@ import java.util.Comparator;
 
 import com.gocarting.cart.Cart;
 import com.gocarting.item.Item;
-import com.gocarting.item.ItemRepository;
+import com.gocarting.repository.ItemRepository;
 
 import static com.gocarting.controller.CartController.ItemNotFoundException;
 
@@ -18,13 +18,15 @@ import com.google.common.collect.MinMaxPriorityQueue;
 public class CartServiceImpl implements CartService {
 
     private Cart cart;
-    private final Comparator<Item> itemComparator = Comparator.comparing(Item::getPrice);
-    // Min-Max heap maintains cheapest and most expensive item efficiently
-    @SuppressWarnings("UnstableApiUsage")
-    private final MinMaxPriorityQueue<Item> itemHeap = MinMaxPriorityQueue.orderedBy(itemComparator).create();
-
     private Double cartSum = 0.0;
     private ItemRepository itemsRepository;
+
+    private final Comparator<Item> itemComparator =
+                  Comparator.comparing(Item::getPrice);
+    // Min-Max heap maintains cheapest and most expensive item efficiently
+    @SuppressWarnings("UnstableApiUsage")
+    private final MinMaxPriorityQueue<Item> itemHeap =
+                  MinMaxPriorityQueue.orderedBy(itemComparator).create();
 
     public CartServiceImpl(ItemRepository itemRepository) {
         this.itemsRepository = itemRepository;
@@ -53,6 +55,10 @@ public class CartServiceImpl implements CartService {
         return "Successfully added " + id + " to cart!";
     }
 
+    public Boolean isEmpty() {
+        return itemHeap.size() == 0;
+    }
+
     /**
      * Attempts to remove an item from the cart by {@code id}.
      * Returns "Sucess!" upon successful removal, and throws {@code 404 Exception} otherwise.
@@ -73,8 +79,9 @@ public class CartServiceImpl implements CartService {
      */
     @Override
     public Item getCheapestItem() {
-        Item cheapest = itemHeap.peekFirst();
-        if (cheapest == null) throw new ItemNotFoundException();
+        if (isEmpty()) {
+            throw new ItemNotFoundException();
+        }
         return itemHeap.peekFirst();
     }
 
@@ -85,8 +92,9 @@ public class CartServiceImpl implements CartService {
      */
     @Override
     public Item getPriciestItem() {
-        Item priciest = itemHeap.peekLast();
-        if (priciest == null) throw new ItemNotFoundException();
+        if (isEmpty()) {
+            throw new ItemNotFoundException();
+        }
         return itemHeap.peekLast();
     }
 }

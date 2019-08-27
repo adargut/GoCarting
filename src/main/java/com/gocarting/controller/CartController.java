@@ -1,17 +1,15 @@
 package com.gocarting.controller;
 
 import com.gocarting.item.Item;
-import com.gocarting.item.ItemRepository;
+import com.gocarting.repository.ItemRepository;
 import com.gocarting.service.CartServiceImpl;
-import com.gocarting.item.MockItemRepository;
+import com.gocarting.repository.MockItemRepository;
 import com.gocarting.service.CartService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-
-import java.util.Collections;
 
 @RestController
 public class CartController {
@@ -38,7 +36,7 @@ public class CartController {
         return cartService.addToCart(itemid);
     }
 
-    @DeleteMapping("/delete-from-cart")
+    @GetMapping("/delete-from-cart")
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     public String removeFromCart(@RequestParam String itemid) {
@@ -52,15 +50,17 @@ public class CartController {
     }
 
     @GetMapping("/get-cheapest-item")
-    @ResponseStatus(HttpStatus.OK)
-    public String cheapestItem() {
-        return cartService.getCheapestItem().toString();
+    public ResponseEntity<String> cheapestItem() {
+        Item cheapestItem = cartService.getCheapestItem();
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(cartService.getCheapestItem().toString());
     }
 
     @GetMapping("/get-priciest-item")
-    @ResponseStatus(HttpStatus.OK)
-    public String priciestItem() {
-        return cartService.getPriciestItem().toString();
+    public ResponseEntity<String> priciestItem() {
+        Item priciestItem = cartService.getPriciestItem();
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(cartService.getCheapestItem().toString());
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -72,7 +72,7 @@ public class CartController {
     public static class ItemNotFoundException extends RuntimeException {
 
         public ItemNotFoundException(String id) {
-            super("Could not find item" + id);
+            super("Could not find item " + id);
         }
 
         public ItemNotFoundException() {

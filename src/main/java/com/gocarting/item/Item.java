@@ -4,20 +4,20 @@ import java.util.Objects;
 
 public class Item implements Comparable<Item> {
 
-    private String id;
+    private String itemId;
     private double price;
 
-    public Item(String id, double price) {
-        this.price = price;
-        this.id = id;
+    public Item(String itemId, double Price) {
+        this.price = Price;
+        this.itemId = itemId;
     }
 
     public double getPrice() {
         return price;
     }
 
-    public String getId() {
-        return id;
+    public String getItemId() {
+        return itemId;
     }
 
     @Override
@@ -25,12 +25,12 @@ public class Item implements Comparable<Item> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Item item = (Item) o;
-        return id.equals(item.id);
+        return itemId.equals(item.itemId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(itemId);
     }
 
     @Override
@@ -41,8 +41,8 @@ public class Item implements Comparable<Item> {
     @Override
     public String toString() {
         return "{" +
-                "\"itemId\": " + "\"" + id + "\"," +
-                System.getProperty("line.separator") +
+                "\"itemId\": " + "\"" + itemId + "\"," +
+                System.lineSeparator() +
                 " \"Price\": " + price + "}";
     }
 }

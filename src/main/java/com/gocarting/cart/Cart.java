@@ -1,7 +1,7 @@
 package com.gocarting.cart;
 
 import com.gocarting.item.Item;
-import com.gocarting.item.ItemRepository;
+import com.gocarting.repository.ItemRepository;
 
 import java.util.HashMap;
 

@@ -1,4 +1,6 @@
-package com.gocarting.item;
+package com.gocarting.repository;
+
+import com.gocarting.item.Item;
 
 public interface ItemRepository {
 

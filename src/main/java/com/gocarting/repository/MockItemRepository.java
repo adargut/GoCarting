@@ -1,6 +1,7 @@
-package com.gocarting.item;
+package com.gocarting.repository;
 
-import java.util.Comparator;
+import com.gocarting.item.Item;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,7 +12,7 @@ public class MockItemRepository implements ItemRepository {
 
     private int itemsAmount;
 
-    private final Map<String, Item> items  = new HashMap<String, Item>() {{
+    private final Map<String, Item> items = new HashMap<String, Item>() {{
         put("10A", new Item("10A", 150));
         put("20B", new Item("20B", 200));
         put("30C", new Item("30C", 65.5));
@@ -21,6 +22,8 @@ public class MockItemRepository implements ItemRepository {
         put("70G", new Item("70G", 42.4242));
         put("80H", new Item("80H", 1241));
         put("90I", new Item("90I", 196));
+
+        itemsAmount += 9;
     }};
 
     /**

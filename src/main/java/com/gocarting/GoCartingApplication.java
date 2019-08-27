@@ -1,5 +1,6 @@
 package com.gocarting;
 
+import com.gocarting.item.Item;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
