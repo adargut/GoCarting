@@ -7,7 +7,7 @@ public class Item implements Comparable<Item> {
     private String id;
     private double price;
 
-    Item(String id, double price) {
+    public Item(String id, double price) {
         this.price = price;
         this.id = id;
     }
@@ -41,8 +41,8 @@ public class Item implements Comparable<Item> {
     @Override
     public String toString() {
         return "{" +
-                "\"itemId\":" + "\"" + id + "\"," +
+                "\"itemId\": " + "\"" + id + "\"," +
                 System.getProperty("line.separator") +
-                " \"Price:\"'" + price + '\'' + '}';
+                " \"Price\": " + price;
     }
 }

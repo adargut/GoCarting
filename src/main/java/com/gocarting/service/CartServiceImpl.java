@@ -1,14 +1,14 @@
 package com.gocarting.service;
 
 import java.util.Comparator;
-import java.util.stream.Collectors;
 
 import com.gocarting.cart.Cart;
-import com.gocarting.controller.CartController;
 import com.gocarting.item.Item;
 import com.gocarting.item.ItemRepository;
+
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+
 import com.google.common.collect.MinMaxPriorityQueue;
 
 import static com.gocarting.controller.CartController.*;
@@ -17,7 +17,7 @@ import static com.gocarting.controller.CartController.*;
 @Component
 public class CartServiceImpl implements CartService {
 
-    private final Cart cart;
+    private Cart cart;
     private final Comparator<Item> itemComparator = Comparator.comparing(Item::getPrice);
     @SuppressWarnings("UnstableApiUsage")
     private final MinMaxPriorityQueue<Item> itemHeap = MinMaxPriorityQueue.orderedBy(itemComparator).create();
@@ -41,7 +41,7 @@ public class CartServiceImpl implements CartService {
 
     /**
      * Attempts to add an item to cart by {@code id}.
-     * Returns true on success, false otherwise.
+     * Returns true on success, and 404 Exception otherwise.
      */
     @Override
     public String addToCart(String id) {

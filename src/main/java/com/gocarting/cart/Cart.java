@@ -10,20 +10,31 @@ public class Cart {
     private final HashMap<Item, Integer> cartItems = new HashMap<>();
 
     private ItemRepository itemRepository;
-    private Double cartSum;
+    private Double cartSum = 0.0;
 
     public Cart(ItemRepository itemRepository) {
         this.itemRepository = itemRepository;
     }
 
+    /**
+     * Returns the sum of all elements in {@code cartItems}.
+     * If the cart is empty, returns 0.0.
+     */
     public Double getCartSum() {
         return cartSum;
     }
 
+    /**
+     * Returns true if cart contains {@code itemID}, and false otherwise.
+     */
     public Boolean hasItem(String itemID) {
         return cartItems.containsKey(itemRepository.getItem(itemID));
     }
 
+    /**
+     * Attempts to add an item to cart by {@code itemID}.
+     * Returns true on success, false otherwise.
+     */
     public Boolean addToCart(String itemID) {
         if (!itemRepository.hasItem(itemID)) {
             return false;
@@ -38,6 +49,10 @@ public class Cart {
         return true;
     }
 
+    /**
+     * Attempts to remove an item from the cart by {@code itemID}.
+     * Returns true upon successful removal, and false otherwise.
+     */
     public Boolean removeFromCart(String itemID) {
         if (!this.hasItem(itemID)) {
             return false;

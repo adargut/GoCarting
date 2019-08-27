@@ -4,11 +4,12 @@ import com.gocarting.item.Item;
 import com.gocarting.item.ItemRepository;
 import com.gocarting.service.CartServiceImpl;
 import com.gocarting.item.MockItemRepository;
+import com.gocarting.service.CartService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.MediaType;
-import com.gocarting.service.CartService;
 
 @RestController
 public class CartController {
@@ -17,25 +18,17 @@ public class CartController {
 
     private ItemRepository itemRepository = new MockItemRepository();
 
-    // TODO make this injection
     CartController() {
         this.cartService = new CartServiceImpl(itemRepository);
     }
 
-    @PutMapping(value = "/peek")
-    @ResponseStatus(HttpStatus.OK)
-    public String peek() {
-        addToCart("10A");
-        return "Done!";
-    }
-
-    @PutMapping(value = "/add-to-cart?itemid={id}", produces = MediaType.TEXT_PLAIN_VALUE)
+    @RequestMapping(value = "/add-to-cart/{id}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public String addToCart(@PathVariable String id) {
         return cartService.addToCart(id);
     }
 
-    @DeleteMapping(value = "/remove-from-cart?itemid={id}", produces = MediaType.TEXT_PLAIN_VALUE)
+    @RequestMapping(value = "/remove-from-cart/{id}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public String removeFromCart(@PathVariable String id) {
         return cartService.removeFromCart(id);
@@ -43,25 +36,24 @@ public class CartController {
 
     @GetMapping(value = "/get-cart-sum", produces = MediaType.TEXT_PLAIN_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public Double getCartSum() {
-        return cartService.getCartSum();
+    public String getCartSum() {
+        return cartService.getCartSum().toString();
     }
 
     @GetMapping(value = "/get-cheapest-item", produces = MediaType.TEXT_PLAIN_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public Item cheapestItem() {
-        return cartService.getCheapestItem();
+    public String cheapestItem() {
+        return cartService.getCheapestItem().toString();
     }
 
-    // Gets priciest item available.
     @GetMapping(value = "/get-priciest-item", produces = MediaType.TEXT_PLAIN_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public Item priciestItem() {
-        return cartService.getPriciestItem();
+    public String priciestItem() {
+        return cartService.getPriciestItem().toString();
     }
 
     // Index
-    @RequestMapping("/")
+    @RequestMapping(value = "/", produces = MediaType.TEXT_PLAIN_VALUE)
     public String index() {
         return "Let's go carting!";
     }
