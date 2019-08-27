@@ -24,24 +24,14 @@ public class CartController {
         this.cartService = new CartServiceImpl(itemRepository);
     }
 
-    @PutMapping("/test")
-    public String claimTask(@RequestParam String id){
-        return cartService.addToCart(id);
-    }
-
     // Index
     @RequestMapping("/")
     public String index() {
         return "Let's go carting!";
     }
 
-    @GetMapping("/peek")
-        public String postTest() {
-        cartService = new CartServiceImpl(new MockItemRepository());
-        return "OK!";
-    }
-
-    @PostMapping("/add-to-cart")
+    // TODO why does this only work with GetMapping? Should be PostMapping!
+    @GetMapping("/add-to-cart")
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     public String addToCart(@RequestParam String itemid) {
