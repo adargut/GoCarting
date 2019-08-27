@@ -32,6 +32,13 @@ public class Cart {
     }
 
     /**
+     * Returns amount of occurences for a given item object.
+     */
+    public int getItemAmount(Item item) {
+        return cartItems.get(item);
+    }
+
+    /**
      * Attempts to add an item to cart by {@code itemID}.
      * Returns true on success, false otherwise.
      */
@@ -41,6 +48,7 @@ public class Cart {
         }
         Item addedItem = itemRepository.getItem(itemID);
         if (cartItems.containsKey(addedItem)) {
+            // Support multiple items of same kind inside cart.
             cartItems.put(addedItem, cartItems.get(addedItem) + 1);
         } else {
             cartItems.put(addedItem, 1);
@@ -58,7 +66,13 @@ public class Cart {
             return false;
         }
         Item removedItem = itemRepository.getItem(itemID);
-        cartItems.remove(removedItem);
+        if (cartItems.get(removedItem) == 1) {
+            cartItems.remove(removedItem);
+        }
+        else {
+            // Support multiple items of same kind inside cart.
+            cartItems.put(removedItem, cartItems.get(removedItem) - 1);
+        }
         cartSum -= removedItem.getPrice();
         return true;
     }

@@ -8,6 +8,7 @@ import com.gocarting.repository.ItemRepository;
 
 import static com.gocarting.controller.CartController.ItemNotFoundException;
 
+import com.gocarting.repository.MockItemRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -61,7 +62,7 @@ public class CartServiceImpl implements CartService {
 
     /**
      * Attempts to remove an item from the cart by {@code id}.
-     * Returns "Sucess!" upon successful removal, and throws {@code 404 Exception} otherwise.
+     * Returns success message upon successful removal, and throws {@code 404 Exception} otherwise.
      */
     @Override
     public String removeFromCart(String id) {

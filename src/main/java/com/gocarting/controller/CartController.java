@@ -29,14 +29,14 @@ public class CartController {
     }
 
     // TODO why does this only work with GetMapping? Should be PostMapping!
-    @GetMapping("/add-to-cart")
+    @RequestMapping("/add-to-cart")
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     public String addToCart(@RequestParam String itemid) {
         return cartService.addToCart(itemid);
     }
 
-    @GetMapping("/delete-from-cart")
+    @RequestMapping("/delete-from-cart")
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     public String removeFromCart(@RequestParam String itemid) {
@@ -53,14 +53,14 @@ public class CartController {
     public ResponseEntity<String> cheapestItem() {
         Item cheapestItem = cartService.getCheapestItem();
         return ResponseEntity.status(HttpStatus.OK)
-                .body(cartService.getCheapestItem().toString());
+                .body(cheapestItem.toString());
     }
 
     @GetMapping("/get-priciest-item")
     public ResponseEntity<String> priciestItem() {
         Item priciestItem = cartService.getPriciestItem();
         return ResponseEntity.status(HttpStatus.OK)
-                .body(cartService.getCheapestItem().toString());
+                .body(priciestItem.toString());
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -72,11 +72,11 @@ public class CartController {
     public static class ItemNotFoundException extends RuntimeException {
 
         public ItemNotFoundException(String id) {
-            super("Could not find item " + id);
+            super("Could not find item " + id + ".");
         }
 
         public ItemNotFoundException() {
-            super("Could not find item");
+            super("Could not find item.");
         }
     }
 }
