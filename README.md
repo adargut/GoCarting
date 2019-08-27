@@ -26,7 +26,7 @@
 
 **Tips:**
 
-- Item are represented as JSONs
+- Items are represented as JSONs
 - To avoid 405 Errors, use PUT request for adding cart items, DELETE request for deletion, and GET request otherwise
 
 ## Author
