@@ -17,7 +17,7 @@ public class MockItemRepository implements ItemRepository {
         put("20B", new Item("20B", 200));
         put("30C", new Item("30C", 65.5));
         put("40D", new Item("40D", 10.25));
-        put("50E", new Item("50E", 3.145159));
+        put("50E", new Item("50E", 3.14159));
         put("60F", new Item("60F", 79));
         put("70G", new Item("70G", 42.4242));
         put("80H", new Item("80H", 1241));
