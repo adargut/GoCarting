@@ -24,6 +24,11 @@
 - "80H"
 - "90I"
 
+**Tips:**
+
+- Use PUT request for adding an item to the cart, DELETE request for deletion, and GET request otherwise
+- Item are represented as JSONs
+
 ## Author
 
 - Adar Gutman
