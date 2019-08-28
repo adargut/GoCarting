@@ -27,6 +27,7 @@
 **Tips:**
 
 - Items are represented as JSONs
+- To run this, simply navigate to /GoCarting/blob/master/target/GoCarting-1.0.jar
 - To avoid 405 Errors, use PUT request for adding cart items, DELETE request for deletion, and GET request otherwise
 
 ## Author
